@@ -1,23 +1,29 @@
-package com.valuemedi.projectenna.model;
+package com.valuemedi.projectenna.domain;
 
 import lombok.*;
 
 import javax.persistence.*;
 
+@Entity
 @Setter
 @Getter
 @Builder
-@NoArgsConstructor
 @AllArgsConstructor
-@Entity
-public class Product {
+@NoArgsConstructor
+public class Inventory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer id;
-    String code,name,batch;
+
+    @OneToOne
+    @JoinColumn(name = "product_id")
+    Product product;
+
+    String batch;
     int stock,deal,free;
     float mrp,rate;
     @ManyToOne
     @JoinColumn(name = "supplier_id")
     Supplier supplier;
+
 }
