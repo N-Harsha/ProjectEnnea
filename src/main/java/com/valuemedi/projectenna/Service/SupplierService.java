@@ -1,8 +1,7 @@
 package com.valuemedi.projectenna.Service;
 
-import com.valuemedi.projectenna.domain.Inventory;
-import com.valuemedi.projectenna.domain.Supplier;
+import com.valuemedi.projectenna.api.v1.model.SupplierDTO;
 
 public interface SupplierService {
-    Supplier save(Supplier supplier);
+    public SupplierDTO getSupplierById(Integer id);
 }

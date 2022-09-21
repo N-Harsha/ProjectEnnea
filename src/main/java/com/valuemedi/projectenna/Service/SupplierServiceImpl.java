@@ -1,35 +1,33 @@
 package com.valuemedi.projectenna.Service;
 
-import com.valuemedi.projectenna.Repositories.InventoryRepository;
 import com.valuemedi.projectenna.Repositories.SupplierRepository;
-import com.valuemedi.projectenna.domain.Inventory;
+import com.valuemedi.projectenna.Service.SupplierService;
+import com.valuemedi.projectenna.api.v1.mapper.SupplierMapper;
+import com.valuemedi.projectenna.api.v1.model.SupplierDTO;
 import com.valuemedi.projectenna.domain.Supplier;
+import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
-import java.util.Set;
-import java.util.stream.Collectors;
+import java.util.Optional;
 
-
+@Service
 public class SupplierServiceImpl implements SupplierService {
-    private final SupplierRepository supplierRepository;
-    private final InventoryRepository inventoryRepository;
+    SupplierRepository supplierRepository;
+    SupplierMapper supplierMapper;
 
-    public SupplierServiceImpl(SupplierRepository supplierRepository,InventoryRepository inventoryRepository) {
+    public SupplierServiceImpl(SupplierRepository supplierRepository, SupplierMapper supplierMapper) {
         this.supplierRepository = supplierRepository;
-        this.inventoryRepository = inventoryRepository;
+        this.supplierMapper = supplierMapper;
     }
 
     @Override
-    public Supplier save(Supplier supplier) {
-        Set<Inventory> savedInventories = new HashSet<>();
-        for(Inventory i:supplier.getInventoryList()){
-            i.setSupplier(supplier);
-            if(i.getId()==null)
-                savedInventories.add(inventoryRepository.save(i));
-            else
-                savedInventories.add(i);
+    public SupplierDTO getSupplierById(Integer id) {
+        Optional<Supplier> optionalSupplier = supplierRepository.findById(id);
+        if(optionalSupplier.isPresent()){
+            Supplier supplier = optionalSupplier.get();
+            return supplierMapper.SupplierToSupplierDTO(supplier);
         }
-        supplier.setInventoryList(savedInventories);
-        return supplierRepository.save(supplier);
+        else 
+            return null;
+        
     }
 }
