@@ -3,6 +3,7 @@ package com.valuemedi.projectenna.domain;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Setter
@@ -22,6 +23,8 @@ public class Inventory {
     String batch;
     int stock,deal,free;
     float mrp,rate;
+    Date expire;
+
     @ManyToOne
     @JoinColumn(name = "supplier_id")
     Supplier supplier;

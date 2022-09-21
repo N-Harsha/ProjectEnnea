@@ -4,8 +4,7 @@ import com.valuemedi.projectenna.domain.Product;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import java.util.Date;
 
 @Getter
 @Setter
@@ -15,4 +14,5 @@ public class InventoryDTO {
     String batch;
     int stock,deal,free;
     float mrp,rate;
+    Date expire;
 }
