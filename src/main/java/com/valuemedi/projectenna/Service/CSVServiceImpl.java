@@ -37,7 +37,7 @@ public class CSVServiceImpl implements CSVService {
     }
 
     @Override
-    public void Save(MultipartFile file) {
+    public String Save(MultipartFile file) {
         try{
             InputStream is=file.getInputStream();
             BufferedReader fileReader= new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8));
@@ -90,9 +90,10 @@ public class CSVServiceImpl implements CSVService {
             }
         }
         catch(IOException e){
-            throw new RuntimeException("error while reading the file");
+            return "Error Occurred while parsing the file";
         }
 
+        return "added file : "+file.getName()+" Successfully!!!";
 
     }
 }

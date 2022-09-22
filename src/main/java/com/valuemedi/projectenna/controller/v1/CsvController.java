@@ -20,11 +20,7 @@ public class CsvController {
     }
 
     @PostMapping
-    public String csvUpload(@RequestParam("file")MultipartFile file){
-        String message="";
-
-        csvService.Save(file);
-
-        return message;
+    public String csvUpload(@RequestParam("file.csv")MultipartFile file){
+        return csvService.Save(file);
     }
 }

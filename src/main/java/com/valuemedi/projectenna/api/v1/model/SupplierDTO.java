@@ -1,6 +1,5 @@
 package com.valuemedi.projectenna.api.v1.model;
 
-import com.valuemedi.projectenna.domain.Inventory;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,5 +10,6 @@ import java.util.Set;
 public class SupplierDTO {
     Integer id;
     String name;
+    Integer page,size;
     Set<InventoryDTO> inventoryList;
 }

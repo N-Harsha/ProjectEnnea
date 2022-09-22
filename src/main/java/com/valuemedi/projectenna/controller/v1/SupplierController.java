@@ -19,8 +19,10 @@ public class SupplierController {
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public SupplierDTO displayProducts(@PathVariable Integer id, @RequestParam(defaultValue = "false") boolean exp){
-        return supplierService.getSupplierProductsById(id,exp);
+    public SupplierDTO displayProducts(@PathVariable String id, @RequestParam(defaultValue = "false") boolean exp,
+                                       @RequestParam(defaultValue = "0")int page,@RequestParam(defaultValue = "10")int size,
+                                       @RequestParam(defaultValue = "")String prodName){
+        return supplierService.getSupplierProductsById(id,exp,page,size,prodName);
     }
 
 
