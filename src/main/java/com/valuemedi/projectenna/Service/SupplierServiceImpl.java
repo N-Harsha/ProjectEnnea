@@ -33,17 +33,28 @@ public class SupplierServiceImpl implements SupplierService {
     }
 
     @Override
-    public SupplierDTO getSupplierProductsById(Integer id, boolean exp) {
-        Optional<Supplier> optionalSupplier = supplierRepository.findById(id);
+    public SupplierDTO getSupplierProductsById(String name, boolean exp,int page,int size,String prodName) {
+        Optional<Supplier> optionalSupplier;
+        try{
+            Integer id = Integer.parseInt(name);
+            optionalSupplier = supplierRepository.findById(id);
+        }
+        catch(Exception e){
+            optionalSupplier = supplierRepository.findByName(name);
+        }
         if(optionalSupplier.isPresent()){
             Supplier supplier = optionalSupplier.get();
-            if(exp) {
-                    supplier.setInventoryList(supplier.getInventoryList()
-                        .stream()
-                        .filter(inventory -> (inventory.getExpire().after(new Date())))
-                        .collect(Collectors.toSet()));
-            }
-            return supplierMapper.SupplierToSupplierDTO(supplier);
+                boolean isEmpty=prodName.length()==0;
+                supplier.setInventoryList(supplier.getInventoryList().stream()
+                    .filter(inventory -> (inventory.getProduct().getName().toLowerCase().contains(prodName.toLowerCase())||(isEmpty)))
+                    .filter(inventory -> (inventory.getExpire().after(new Date())||(!exp)))
+                    .skip((long)size*page).limit(size)
+                    .collect(Collectors.toSet()));
+
+            SupplierDTO supplierDTO =  supplierMapper.SupplierToSupplierDTO(supplier);
+            supplierDTO.setSize(size);
+            supplierDTO.setPage(page);
+            return supplierDTO;
         }
         else
             return null;
