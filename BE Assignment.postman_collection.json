@@ -1,0 +1,219 @@
+{
+	"info": {
+		"_postman_id": "c4c4fd47-18ea-466b-8724-b9648faa9e73",
+		"name": "BE Assignment",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "upload csv file",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file.csv",
+							"type": "file",
+							"src": "/C:/Users/ennea/AppData/Local/Postman/app-9.31.0/Sample Inventory (1).csv"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/csv/upload",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"csv",
+						"upload"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "find supplier with id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/supplier/40?page=0&size=10",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"supplier",
+						"40"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "0"
+						},
+						{
+							"key": "size",
+							"value": "10"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "find supplier with name",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/supplier/CIPLA LIMITED  HYDERABAD?&page=0&size=5",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"supplier",
+						"CIPLA LIMITED  HYDERABAD"
+					],
+					"query": [
+						{
+							"key": null,
+							"value": null
+						},
+						{
+							"key": "page",
+							"value": "0"
+						},
+						{
+							"key": "size",
+							"value": "5"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "find supplier with id and show products which are not expired",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/supplier/40?exp=true&page=0&size=10",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"supplier",
+						"40"
+					],
+					"query": [
+						{
+							"key": "exp",
+							"value": "true"
+						},
+						{
+							"key": "page",
+							"value": "0"
+						},
+						{
+							"key": "size",
+							"value": "10"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "find supplier with id and show products which are not expired and with prodName filter",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/supplier/6?exp=false&page=1&size=5&prodName=RESPULE",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"supplier",
+						"6"
+					],
+					"query": [
+						{
+							"key": "exp",
+							"value": "false"
+						},
+						{
+							"key": "page",
+							"value": "1"
+						},
+						{
+							"key": "size",
+							"value": "5"
+						},
+						{
+							"key": "prodName",
+							"value": "RESPULE"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Find supplier with name and filter products with prodName param",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/supplier/CIPLA LIMITED  HYDERABAD?exp=false&page=2&size=5&prodName= ",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"supplier",
+						"CIPLA LIMITED  HYDERABAD"
+					],
+					"query": [
+						{
+							"key": "exp",
+							"value": "false"
+						},
+						{
+							"key": "page",
+							"value": "2"
+						},
+						{
+							"key": "size",
+							"value": "5"
+						},
+						{
+							"key": "prodName",
+							"value": " "
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
