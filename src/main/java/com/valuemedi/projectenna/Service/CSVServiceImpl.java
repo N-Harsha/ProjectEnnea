@@ -20,7 +20,9 @@ import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -44,6 +46,19 @@ public class CSVServiceImpl implements CSVService {
             CSVParser csvParser=new CSVParser(fileReader, CSVFormat.DEFAULT.withFirstRecordAsHeader().withIgnoreHeaderCase().withTrim());
             List<CSVRecord> csvRecords= csvParser.getRecords();
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+//            List<Product> productList = productRepository.findAll();
+            Map<String,Product> productMap = new HashMap<>();
+//            List<Supplier> supplierList = supplierRepository.findAll();
+            Map<String,Supplier> supplierMap = new HashMap<>();
+
+//            for(Supplier i: supplierList){
+//                supplierMap.put(i.getName(),i);
+//            }
+//
+//            for(Product i: productList){
+//                productMap.put(i.getCode(),i);
+//            }
+
             for(CSVRecord csvRecord:csvRecords){
                 if(csvRecord.get(CsvHelper.HEADERs[10]).equals(""))
                     continue;
@@ -51,9 +66,9 @@ public class CSVServiceImpl implements CSVService {
                 Supplier supplier;
                 Inventory inventory;
 
-                Optional<Product> optionalProduct = productRepository.findByCode(csvRecord.get(CsvHelper.HEADERs[0]));
-                if(optionalProduct.isPresent()){
-                    product=optionalProduct.get();
+//                Optional<Product> optionalProduct = productRepository.findByCode(csvRecord.get(CsvHelper.HEADERs[0]));
+                if(productMap.containsKey(csvRecord.get(CsvHelper.HEADERs[0]))){
+                    product=productMap.get(csvRecord.get(CsvHelper.HEADERs[0]));
                 }
                 else{
                     product=new Product();
@@ -61,15 +76,17 @@ public class CSVServiceImpl implements CSVService {
                     product.setName(csvRecord.get(CsvHelper.HEADERs[1]));
                     product.setCompany(csvRecord.get(CsvHelper.HEADERs[9]));
                     product=productRepository.save(product);
+                    productMap.put(product.getCode(),product);
                 }
 
-                Optional<Supplier> optionalSupplier = supplierRepository.findByName(csvRecord.get(CsvHelper.HEADERs[10]));
-                if(optionalSupplier.isPresent()){
-                    supplier=optionalSupplier.get();
+//                Optional<Supplier> optionalSupplier = supplierRepository.findByName(csvRecord.get(CsvHelper.HEADERs[10]));
+                if(supplierMap.containsKey(csvRecord.get(CsvHelper.HEADERs[10]))){
+                    supplier=supplierMap.get(csvRecord.get(CsvHelper.HEADERs[10]));
                 }
                 else{
                     supplier=new Supplier();
                     supplier.setName(csvRecord.get(CsvHelper.HEADERs[10]));
+                    supplierMap.put(supplier.getName(), supplier);
                 }
                 inventory=new Inventory();
                 inventory.setFree(Integer.parseInt(csvRecord.get(CsvHelper.HEADERs[5])));
