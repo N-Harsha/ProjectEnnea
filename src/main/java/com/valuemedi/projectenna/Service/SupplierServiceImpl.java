@@ -52,8 +52,6 @@ public class SupplierServiceImpl implements SupplierService {
                     .collect(Collectors.toSet()));
 
             SupplierDTO supplierDTO =  supplierMapper.SupplierToSupplierDTO(supplier);
-            supplierDTO.setSize(size);
-            supplierDTO.setPage(page);
             return supplierDTO;
         }
         else
