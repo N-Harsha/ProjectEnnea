@@ -10,6 +10,5 @@ import java.util.Set;
 public class SupplierDTO {
     Integer id;
     String name;
-    Integer page,size;
     Set<InventoryDTO> inventoryList;
 }

@@ -2,6 +2,7 @@ package com.valuemedi.projectenna.Repositories;
 
 import com.valuemedi.projectenna.domain.Supplier;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 import java.util.Optional;
 
